@@ -1,58 +1,55 @@
-## Features
+## Fitur ✨
 
-- **Data Storage**: Uses Google Sheets API for storing and managing invitation data.
-- **Responsive Design**: Optimized for various screen sizes.
+- 📊 **Penyimpanan Data**: Menggunakan Google Sheets API untuk menyimpan dan mengelola data undangan.
+- 📱 **Desain Responsif**: Dioptimalkan untuk berbagai ukuran layar.
 
-## Tech Stack
+## Teknologi yang Digunakan 🛠️
 
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-![Google Sheets API](https://img.shields.io/badge/Google%20Sheets%20API-34A853?style=for-the-badge&logo=googlesheets&logoColor=white)
-![AOS](https://img.shields.io/badge/AOS-Animate%20On%20Scroll-38B2AC?style=for-the-badge)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
+![Google Sheets API](https://img.shields.io/badge/Google%20Sheets%20API-34A853?style=flat&logo=googlesheets&logoColor=white)
+![AOS](https://img.shields.io/badge/AOS-Animate%20On%20Scroll-38B2AC?style=flat)
 
-<hr/>
+---
 
-## How to Use
+## Cara Menggunakan 🚀
 
-1. **Download the project or clone the repository**:
+1. **Unduh proyek atau kloning repositori**:
     ```bash
     git clone https://github.com/sandiperdiansah/wedding-invitation.git
     ```
 
-2. **Note**: You have two options to use this source code:
-    - **Without Modification**: Open the
-      file [data.js](https://github.com/SandiPerdiansah/wedding-invitation/blob/main/src/assets/data/data.js) to use the
-      code as is.
-    - **With Customization**: Adjust the appearance and content according to your needs.
+2. **Catatan**: Anda memiliki dua pilihan untuk menggunakan kode sumber ini:
+    - **Tanpa Modifikasi**: Buka file [data.js](https://github.com/SandiPerdiansah/wedding-invitation/blob/main/src/assets/data/data.js) untuk langsung menggunakannya.
+    - **Dengan Kustomisasi**: Sesuaikan tampilan dan kontennya sesuai kebutuhan Anda.
 
-### How to Edit `data.js`
+### Cara Mengedit `data.js` ✏️
 
-- **Details**: Update the names of the bride and groom, the wedding date and time, and the venue address.
-- **Links**:
-    - **Calendar**: Provide the URL for a Google Calendar event. Create an event, add the title and description, then
-      save it. Click "Share" to get the shareable link.
+- **Detail**: Perbarui nama pengantin, tanggal dan waktu pernikahan, serta alamat lokasi acara.
+- **Tautan**:
+    - 📅 **Kalender**: Tambahkan URL acara di Google Calendar. Buat acara, tambahkan judul dan deskripsi, lalu simpan. Klik "Bagikan" untuk mendapatkan tautan yang dapat dibagikan.
 
-  ![Event Creation](src/assets/images/readme1.png)
-  ![Event Sharing](src/assets/images/readme2.png)
-  ![Share Link](src/assets/images/readme3.png)
+  ![Membuat Acara](src/assets/images/readme1.png)
+  ![Membagikan Acara](src/assets/images/readme2.png)
+  ![Salin Tautan](src/assets/images/readme3.png)
 
-    - **Map**: Include the URL to the location on Google Maps.
-- **Gallery**: You may include more than 5 images; just ensure they are optimized for web use.
-- **Audio**: Replace default audio files and optimize their sizes.
+    - 📍 **Peta**: Masukkan URL lokasi acara dari Google Maps.
+- 🖼️ **Galeri**: Anda bisa menambahkan lebih dari 5 gambar, pastikan ukurannya dioptimalkan untuk web.
+- 🎵 **Audio**: Ganti file audio default dan pastikan ukurannya optimal.
 
-### Setting Up Google Sheets API
+### Mengatur Google Sheets API 📜
 
-1. **Create a Google Sheets file**: Open Google Sheets, create a new file, and name it accordingly.
+1. **Buat file Google Sheets**: Buka Google Sheets, buat file baru, dan beri nama sesuai keinginan.
 
-![Spreadsheet Setup](src/assets/images/readme4.png)
+![Pengaturan Spreadsheet](src/assets/images/readme4.png)
 
-2. **Adjust the Table in Your Sheets**:
-   ![Spreadsheet Table](src/assets/images/readme5.png)
-   The table consists of (id, name, status, message, date, color)
+2. **Atur Tabel di Google Sheets**:
+   ![Tabel Spreadsheet](src/assets/images/readme5.png)
+   Struktur tabel: (id, nama, status, pesan, tanggal, warna)
 
-4. **Add Google Apps Script**:
-    - Open the Google Sheets file, go to Extensions > Apps Script, and add the following code:
+4. **Tambahkan Google Apps Script**:
+    - Buka file Google Sheets, masuk ke "Ekstensi" > "Apps Script", lalu tambahkan kode berikut:
 
     ```javascript
     const SHEET_NAME = 'comentar';
@@ -73,7 +70,7 @@
 
         const response = {
           status: 200,
-          message: 'Success get services',
+          message: 'Berhasil mengambil data',
           comentar
         };
 
@@ -81,13 +78,8 @@
           .createTextOutput(JSON.stringify(response))
           .setMimeType(ContentService.MimeType.JSON);
       } catch (error) {
-        const errorMessage = {
-          status: 500,
-          message: `Error retrieving data: ${error}`
-        };
-
         return ContentService
-          .createTextOutput(JSON.stringify(errorMessage))
+          .createTextOutput(JSON.stringify({ status: 500, message: `Kesalahan: ${error}` }))
           .setMimeType(ContentService.MimeType.JSON);
       }
     };
@@ -98,49 +90,38 @@
         const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
 
         if (!sheet) {
-          throw new Error(`Sheet "${SHEET_NAME}" not found`);
+          throw new Error(`Sheet "${SHEET_NAME}" tidak ditemukan`);
         }
 
         sheet.appendRow([id, name, status, message, date, color]);
 
-        const response = {
-          status: 200,
-          message: 'Success add service'
-        };
-
         return ContentService
-          .createTextOutput(JSON.stringify(response))
+          .createTextOutput(JSON.stringify({ status: 200, message: 'Data berhasil ditambahkan' }))
           .setMimeType(ContentService.MimeType.JSON);
       } catch (error) {
-        const errorMessage = {
-          status: 500,
-          message: `Error adding data: ${error}`
-        };
-
         return ContentService
-          .createTextOutput(JSON.stringify(errorMessage))
+          .createTextOutput(JSON.stringify({ status: 500, message: `Kesalahan: ${error}` }))
           .setMimeType(ContentService.MimeType.JSON);
       }
     };
     ```
 
-5. **Deploy the Script**:
-    - Click "Deploy" and select "New deployment".
-    - Choose "Web app" in the deployment settings.
+5. **Deploy Script**:
+    - Klik "Deploy" lalu pilih "Deployment Baru".
+    - Pilih "Web app" dalam pengaturan deployment.
 
 ![Deploy](src/assets/images/readme8.png)
-![Deployment Settings](src/assets/images/readme7.png)
-![Deployment Setup](src/assets/images/readme6.png)
+![Pengaturan Deployment](src/assets/images/readme7.png)
+![Setup Deployment](src/assets/images/readme6.png)
 
-Copy the provided URL. If you encounter errors, redeploy as cross-origin issues may occur on the first attempt.
-
-5. **Navbar Customization**: If you want to change the icons, adjust them as needed. Using the provided icons can
-   simplify the process.
-
-## Design Acknowledgment
-
-This project redesigns the wedding invitation from [Dewanakl's GitHub repository](https://github.com/dewanakl). The design inspiration and layout have been adapted and customized to enhance functionality and aesthetics.
+Salin URL yang diberikan. Jika terjadi kesalahan, coba deploy ulang karena terkadang ada masalah dengan cross-origin pada percobaan pertama.
 
 ---
 
-Thank you for visiting the repository. I hope your wedding day is smooth and filled with joy! 😊
+## Penghargaan Desain 🎨
+
+Proyek ini merupakan redesain dari undangan pernikahan milik [Dewanakl](https://github.com/dewanakl). Tata letak dan desain telah disesuaikan untuk meningkatkan fungsi dan estetika.
+
+---
+
+Terima kasih telah mengunjungi repositori ini. Semoga hari pernikahan Anda berjalan lancar dan penuh kebahagiaan! 😊
