@@ -10,7 +10,7 @@ export const data = {
         },
         P: {
             id: 2,
-            name: 'Ipsum Lorem',
+            name: 'Ahmad Fauzi',
             child: 'Putra Pertama',
             father: 'Hermanto (Alm.)',
             mother: 'Titik Kartinah',
