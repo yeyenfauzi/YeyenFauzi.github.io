@@ -2,19 +2,19 @@ export const data = {
     bride: {
         L: {
             id: 1,
-            name: 'Lorem Ipsum',
-            child: 'Putra ke lorem',
-            father: 'Lorem',
-            mother: 'Ipsum',
-            image: './src/assets/images/cowo.png'
+            name: 'Yeyen Sulistari',
+            child: 'Putri ke-4',
+            father: 'Ebeng Satibi (Alm.)',
+            mother: 'Siti Suadah',
+            image: './src/assets/images/cowe.png'
         },
         P: {
             id: 2,
             name: 'Ipsum Lorem',
-            child: 'Putri ke lorem',
-            father: 'Lorem',
-            mother: 'Ipsum',
-            image: './src/assets/images/cewe.png'
+            child: 'Putra Pertama',
+            father: 'Hermanto (Alm.)',
+            mother: 'Titik Kartinah',
+            image: './src/assets/images/cowo.png'
         },
 
         couple: './src/assets/images/couple.png'
@@ -22,31 +22,31 @@ export const data = {
 
     time: {
         marriage: {
-            year: '2030',
-            month: 'November',
-            date: '14',
-            day: 'Kamis',
+            year: '2025',
+            month: 'Oktober',
+            date: '25',
+            day: 'Sabtu',
             hours: {
                 start: '08.00',
                 finish: 'Selesai'
             }
         },
         reception: {
-            year: '2024',
-            month: 'November',
-            date: '14',
-            day: 'Kamis',
+            year: '2025',
+            month: 'Oktober',
+            date: '25',
+            day: 'Sabtu',
             hours: {
                 start: '11.00',
-                finish: 'Selesai'
+                finish: '13.00 WIB'
             }
         },
-        address: 'Kp. Lorem, RT 000/ RW 000, Desa.Lorem, Kec.Ipsum, Kab.Lorem, Lorem (1234)'
+        address: 'Gedung Serbaguna Antarikshe Koopsau 1, Jl. Raya Pondok Gede, Kec. Makasar, Kota Jakarta Timur'
     },
 
     link: {
-        calendar: 'https://calendar.app.google/oSVLRMYC79GzuA4f9',
-        map: 'https://maps.app.goo.gl/q1Ask2Jgd4ekiiKBA',
+        calendar: 'https://calendar.app.google/kfFyZGZNxC4FSDNv5',
+        map: 'https://maps.app.goo.gl/ugCiC4NwD4vbKxLh7',
     },
 
     galeri: [
@@ -75,21 +75,21 @@ export const data = {
     bank: [
         {
             id: 1,
-            name: 'Lorem Ipsum',
+            name: 'Ahmad Fauzi',
             icon: './src/assets/images/bca.png',
-            rekening: '12345678'
+            rekening: '4140033109'
         },
         {
             id: 2,
-            name: 'Ipsum Lorem',
+            name: 'Yeyen Sulistari',
             icon: './src/assets/images/bri.png',
-            rekening: '12345678'
+            rekening: '41920039600'
         },
     ],
 
     audio: './src/assets/audio/wedding.mp3',
 
-    api: 'https://script.google.com/macros/s/AKfycbyydz6N4p2VWUG8zsXeURv6ap9RP8a4eC3x6N3x6qTDjMVr1cIBz9S0NsHw2rWvBOSXGg/exec',
+    api: 'https://script.google.com/macros/s/AKfycbxQDJKB9TNX7cqGzFydVh7EtoaEoxMSGCBMpgi-bPptBZb89rogxvWG5Y5J6vLAW5qw/exec',
 
     navbar: [
         {
