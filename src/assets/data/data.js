@@ -6,7 +6,7 @@ export const data = {
             child: 'Putri ke-4',
             father: 'Ebeng Satibi (Alm.)',
             mother: 'Siti Suadah',
-            image: './src/assets/images/cowe.png'
+            image: './src/assets/images/cewe.png'
         },
         P: {
             id: 2,
