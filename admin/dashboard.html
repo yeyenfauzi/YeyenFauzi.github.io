@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard Admin - Yeyen & Fauzi</title>
   <link rel="stylesheet" href="../src/assets/styles/global.css">
+  <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
   <header>
@@ -16,7 +17,6 @@
       </ul>
     </nav>
   </header>
-
   <main>
     <section id="section-tamu">
       <h2>Daftar Tamu</h2>
@@ -29,21 +29,19 @@
             <th>Status</th>
             <th>Message</th>
             <th>Date</th>
+            <th>Phone</th>
             <th>Aksi</th>
           </tr>
         </thead>
         <tbody></tbody>
       </table>
     </section>
-
     <section id="section-kirim" style="display:none;">
       <h2>Kirim Undangan</h2>
       <p>Copy link undangan untuk tamu:</p>
       <div id="kirim-list"></div>
     </section>
   </main>
-
-  <script src="data.js"></script>
-  <script src="script.js"></script>
+  <script type="module" src="script.js"></script>
 </body>
 </html>
