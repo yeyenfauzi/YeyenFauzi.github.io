@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard Undangan — Tahap 1</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; display: flex; }
+    nav { width: 200px; background: #2b3d52; color: white; min-height: 100vh; padding: 20px; }
+    nav h2 { font-size: 18px; margin-top: 0; }
+    nav ul { list-style: none; padding: 0; }
+    nav ul li { margin: 10px 0; cursor: pointer; }
+    nav ul li:hover { text-decoration: underline; }
+    main { flex: 1; padding: 20px; }
+    .hidden { display: none; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    table, th, td { border: 1px solid #ddd; padding: 8px; }
+    th { background: #f4f4f4; }
+    select, textarea, button { width: 100%; padding: 8px; margin: 8px 0; }
+    button { cursor: pointer; }
+  </style>
+</head>
+<body>
+  <nav>
+    <h2>Dashboard Admin</h2>
+    <ul>
+      <li onclick="showPage('tamu')">Tamu</li>
+      <li onclick="showPage('undangan')">Kirim Undangan</li>
+    </ul>
+  </nav>
+
+  <main>
+    <!-- Halaman Daftar Tamu -->
+    <section id="tamu">
+      <h2>Daftar Tamu</h2>
+      <table>
+        <thead>
+          <tr><th>Nama</th><th>No WA</th></tr>
+        </thead>
+        <tbody id="tabelTamu">
+          <tr><td colspan="2">Memuat data...</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Halaman Kirim Undangan -->
+    <section id="undangan" class="hidden">
+      <h2>Kirim Undangan</h2>
+      <label for="pilihTamu">Pilih Tamu:</label>
+      <select id="pilihTamu">
+        <option value="">-- Pilih --</option>
+      </select>
+      <button onclick="buatPesan()">Generate Pesan</button>
+
+      <h3>Preview Pesan</h3>
+      <textarea id="pesan" rows="6" placeholder="Pesan akan muncul di sini"></textarea>
+      <button onclick="kirimWA()">Kirim via WhatsApp</button>
+    </section>
+  </main>
+
+  <script>
+    // Ganti dengan URL API Google Sheets-mu
+    const API_URL = 'https://script.google.com/macros/s/AKfycbxQDJKB9TNX7cqGzFydVh7EtoaEoxMSGCBMpgi-bPptBZb89rogxvWG5Y5J6vLAW5qw/exec';
+
+    let tamuList = [];
+
+    // Fungsi untuk menampilkan page
+    function showPage(page) {
+      document.getElementById('tamu').classList.add('hidden');
+      document.getElementById('undangan').classList.add('hidden');
+      document.getElementById(page).classList.remove('hidden');
+    }
+
+    // Ambil data tamu dari API
+    async function loadTamu() {
+      try {
+        const resp = await fetch(API_URL);
+        if (!resp.ok) {
+          throw new Error('HTTP error ' + resp.status);
+        }
+        const data = await resp.json();
+        tamuList = data;
+        renderTamu();
+        renderDropdown();
+      } catch (err) {
+        console.error('Error mengambil data tamu:', err);
+        // Tampilkan kesalahan di tabel
+        document.getElementById('tabelTamu').innerHTML = 
+          `<tr><td colspan="2">Gagal memuat data</td></tr>`;
+      }
+    }
+
+    // Tampilkan daftar tamu di tabel
+    function renderTamu() {
+      const tbody = document.getElementById('tabelTamu');
+      tbody.innerHTML = '';
+      if (tamuList.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="2">Tidak ada data tamu</td></tr>`;
+        return;
+      }
+      tamuList.forEach(t => {
+        const tr = document.createElement('tr');
+        const tdNama = document.createElement('td');
+        tdNama.textContent = t.nama;
+        const tdWA = document.createElement('td');
+        tdWA.textContent = t.wa;
+        tr.appendChild(tdNama);
+        tr.appendChild(tdWA);
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Buat opsi dropdown untuk Kirim Undangan
+    function renderDropdown() {
+      const sel = document.getElementById('pilihTamu');
+      sel.innerHTML = `<option value="">-- Pilih --</option>`;
+      tamuList.forEach((t, i) => {
+        const opt = document.createElement('option');
+        opt.value = i;
+        opt.textContent = t.nama;
+        sel.appendChild(opt);
+      });
+    }
+
+    // Buat pesan undangan berdasarkan tamu yang dipilih
+    function buatPesan() {
+      const sel = document.getElementById('pilihTamu');
+      const idx = sel.value;
+      if (idx === '') {
+        alert('Silakan pilih tamu dulu');
+        return;
+      }
+      const t = tamuList[idx];
+      // Template pesan dasar
+      const linkUndangan = `https://yeyenfauzi.github.io/invitation/?to=${encodeURIComponent(t.nama)}`;
+      const pesan = `Wedding Yeyen & Fauzi\n\nDear ${t.nama},\nYou’re invited to our wedding!\n\nPlease RSVP via:\n${linkUndangan}\n\n==\nThis is an automated message.`;
+      document.getElementById('pesan').value = pesan;
+    }
+
+    // Buka WhatsApp Web dengan pesan yang sudah dibuat
+    function kirimWA() {
+      const sel = document.getElementById('pilihTamu');
+      const idx = sel.value;
+      if (idx === '') {
+        alert('Silakan pilih tamu dulu');
+        return;
+      }
+      const t = tamuList[idx];
+      const msg = document.getElementById('pesan').value;
+      if (!msg) {
+        alert('Pesan kosong, silakan generate dulu');
+        return;
+      }
+      // encode uri
+      const teks = encodeURIComponent(msg);
+      // format nomor WA: harus dalam format internasional tanpa tanda +, misalnya 628123456...
+      window.open(`https://wa.me/${t.wa}?text=${teks}`, '_blank');
+    }
+
+    // Saat halaman dimuat, panggil loadTamu
+    window.addEventListener('load', () => {
+      showPage('tamu');
+      loadTamu();
+    });
+  </script>
+</body>
+</html>
