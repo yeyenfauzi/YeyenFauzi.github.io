@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Admin - Yeyen & Fauzi</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Dashboard Admin</h1>
+    <nav>
+      <ul>
+        <li><a href="#" id="menu-tamu" class="active">Tamu</a></li>
+        <li><a href="#" id="menu-kirim">Kirim Undangan</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="section-tamu">
+      <h2>Daftar Tamu</h2>
+      <input type="text" id="search" placeholder="Cari nama tamu...">
+      <table id="tabel-tamu">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Nama</th>
+            <th>Email / WA</th>
+            <th>Status</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <section id="section-kirim" style="display:none;">
+      <h2>Kirim Undangan</h2>
+      <p>Copy link undangan untuk tamu:</p>
+      <div id="kirim-list"></div>
+    </section>
+  </main>
+
+  <script src="../assets/data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
