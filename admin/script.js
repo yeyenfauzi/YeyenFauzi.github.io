@@ -38,14 +38,19 @@ async function fetchTamu() {
 async function renderTamu(filteredList = null) {
   const tamu = filteredList || await fetchTamu();
   tabelBody.innerHTML = '';
-  tamu.forEach((item, index) => {
+
+  tamu.forEach((item) => {
     const row = document.createElement('tr');
+    if (item.color) {
+      row.style.backgroundColor = item.color;
+    }
     row.innerHTML = `
-      <td>${index + 1}</td>
-      <td>${item.nama}</td>
-      <td>${item.email}</td>
+      <td>${item.id || '-'}</td>
+      <td>${item.name}</td>
       <td>${item.status || '-'}</td>
-      <td><button onclick="kirimUndangan('${item.email}', '${item.nama}')">Kirim</button></td>
+      <td>${item.message || '-'}</td>
+      <td>${item.date || '-'}</td>
+      <td><button onclick="kirimUndangan('${item.name}', '${item.id}')">Kirim</button></td>
     `;
     tabelBody.appendChild(row);
   });
@@ -54,7 +59,7 @@ async function renderTamu(filteredList = null) {
 searchInput.addEventListener('input', async () => {
   const query = searchInput.value.toLowerCase();
   const tamu = await fetchTamu();
-  const filtered = tamu.filter(t => t.nama.toLowerCase().includes(query));
+  const filtered = tamu.filter(t => t.name.toLowerCase().includes(query));
   renderTamu(filtered);
 });
 
@@ -64,17 +69,17 @@ async function renderKirimList() {
   tamu.forEach(item => {
     const div = document.createElement('div');
     div.innerHTML = `
-      <span>${item.nama} (${item.email})</span>
-      <button onclick="kirimUndangan('${item.email}', '${item.nama}')">Kirim</button>
+      <span>${item.name} (${item.id})</span>
+      <button onclick="kirimUndangan('${item.name}', '${item.id}')">Kirim</button>
     `;
     kirimList.appendChild(div);
   });
 }
 
-function kirimUndangan(email, nama) {
-  const link = `https://yeyenfauzi.github.io/invitation/?to=${encodeURIComponent(email)}`;
+function kirimUndangan(name, id) {
+  const link = `https://yeyenfauzi.github.io/invitation/?to=${encodeURIComponent(id)}`;
   navigator.clipboard.writeText(link);
-  alert(`Link undangan untuk ${nama} sudah dicopy:\n${link}`);
+  alert(`Link undangan untuk ${name} sudah dicopy:\n${link}`);
 }
 
 renderTamu();
