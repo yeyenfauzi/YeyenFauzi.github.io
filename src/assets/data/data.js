@@ -7,8 +7,6 @@ export const data = {
             father: 'Ebeng Satibi (Alm.)',
             mother: 'Siti Suadah',
             image: './src/assets/images/cewe.png'
-            instagram: 'https://www.instagram.com/ysulistari/,
-            profileImage: './src/assets/images/instagram.png'
         },
         P: {
             id: 2,
@@ -16,9 +14,7 @@ export const data = {
             child: 'Putra Pertama',
             father: 'Hermanto (Alm.)',
             mother: 'Titik Kartinah',
-            image: './src/assets/images/cowo.png'
-            instagram: 'https://www.instagram.com/ozhie_/,
-            profileImage: './src/assets/images/instagram.png' 
+            image: './src/assets/images/cowo.png' 
         },
 
         couple: './src/assets/images/couple.png'
