@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buat Link Undangan</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f4e9dd;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+    .container {
+      max-width: 400px;
+      margin: 50px auto;
+      background: #f4e9dd;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      text-align: center;
+      font-size: 16px;
+    }
+    button {
+      background-color: #a25b54;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #8d4f49;
+    }
+    .result {
+      margin-top: 20px;
+      display: none;
+    }
+    .result input {
+      background: #fff;
+    }
+    .copy-btn, .test-btn {
+      background-color: #a25b54;
+      color: white;
+      margin: 5px;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+    }
+    .whatsapp-btn {
+      background-color: #25D366;
+      color: white;
+      margin-top: 10px;
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+    }
+    .social-btn {
+      background-color: #007bff;
+      color: white;
+      margin-top: 8px;
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h3>Nama Tamu :</h3>
+    <input type="text" id="guestName" placeholder="Contoh: Dia dan Partner">
+    <button onclick="generateLink()">Buat Link Undangan</button>
+
+    <div class="result" id="resultSection">
+      <h4>Hasil Generate</h4>
+      <input type="text" id="resultLink" readonly>
+      <br>
+      <button class="copy-btn" onclick="copyLink()">Copy</button>
+      <button class="test-btn" onclick="testLink()">Test Link</button>
+      <br>
+      <button class="whatsapp-btn" onclick="shareWhatsApp()">Kirim via WhatsApp</button>
+      <button class="social-btn" onclick="shareOther()">Bagikan ke Media Sosial Lainnya</button>
+    </div>
+  </div>
+
+  <script>
+    function generateLink() {
+      const guestName = document.getElementById("guestName").value.trim();
+      if (!guestName) {
+        alert("Silakan isi nama tamu terlebih dahulu!");
+        return;
+      }
+      const encodedName = encodeURIComponent(guestName);
+      const baseUrl = "https://yeyenfauzi.github.io/";
+      const fullLink = `${baseUrl}?to=${encodedName}`;
+      document.getElementById("resultLink").value = fullLink;
+      document.getElementById("resultSection").style.display = "block";
+    }
+
+    function copyLink() {
+      const copyText = document.getElementById("resultLink");
+      copyText.select();
+      document.execCommand("copy");
+      alert("Link berhasil disalin!");
+    }
+
+    function testLink() {
+      const link = document.getElementById("resultLink").value;
+      if (link) window.open(link, "_blank");
+    }
+
+    function shareWhatsApp() {
+      const link = document.getElementById("resultLink").value;
+      const text = `Halo! Ini link undangan spesial untukmu 💌 ${link}`;
+      window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank");
+    }
+
+    function shareOther() {
+      const link = document.getElementById("resultLink").value;
+      if (navigator.share) {
+        navigator.share({
+          title: "Undangan Spesial",
+          text: "Berikut link undanganmu 💌",
+          url: link
+        });
+      } else {
+        alert("Fitur berbagi tidak tersedia di perangkat ini.");
+      }
+    }
+  </script>
+</body>
+</html>
